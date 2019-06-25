@@ -1,4 +1,7 @@
 import checkPropTypes from "check-prop-types";
+import {createStore} from 'redux';
+
+import rootReducer from '../src/reducers';
 
 /**
  * @param  {ShallowWrapper} wrapper
@@ -18,3 +21,8 @@ export const checkProps = (component, conformingProps) => {
   );
   expect(propError).toBeUndefined();
 };
+
+//creating our own store for testing based off of rootreducer
+export const storeFactory = (initialState) => {
+  return createStore(rootReducer, initialState);
+}
