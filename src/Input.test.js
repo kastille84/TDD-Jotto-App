@@ -8,7 +8,7 @@ const setup = (initialState={}) => {
   const store = storeFactory(initialState);
     //Important! dive() returns the react child compo of the shallow wrapper
   const wrapper = shallow(<Input store={store} />).dive().dive();
-  console.log(wrapper.debug());
+  //console.log(wrapper.debug());
   return wrapper;
 } 
 
