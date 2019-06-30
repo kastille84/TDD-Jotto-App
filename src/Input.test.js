@@ -100,4 +100,8 @@ describe('`guessWord` action creator call', () => {
     //expect whatever guessedWord happened to be called with, to be guessedWord
     expect(guessWordArg).toBe(guessedWord);
   });
+
+  test('inputBox clears on submit', () => {
+    expect(wrapper.instance().inputBox.current.value).toBe('');
+  });
 });
