@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App, {UnconnectedApp} from './App';
 
 import {storeFactory} from '../test/testUtils';
 import {shallow} from 'enzyme';
@@ -37,5 +37,28 @@ describe("Redux Props", () => {
     console.log('innnsatnce',wrapper)
     const getSecretWordProp = wrapper.instance().props.getSecretWord;
     expect(getSecretWordProp).toBeInstanceOf(Function);
+  })
+  //testing that action creators get called from components when expected to
+  test('`getSecretWord runs on App mount', () => {
+    const getSecretWordMock = jest.fn();
+    const props = {
+        //important one
+      getSecretWord: getSecretWordMock,
+        // not important one, just placing these here so we dont' get warnings
+      success: false,
+      guessedWords: []
+    }
+
+    // setup the app component with getSecretWordMock as the getSecretWord prop
+    //we not using setup() cuz it's for our connected App
+    const wrapper = shallow(<UnconnectedApp {...props }  />)
+
+    // run lifecycle method
+    wrapper.instance().componentDidMount();
+
+    //check to see if our mock ran
+    //.mock tells up about all the mocks that happened
+    const getSecretWordCallCount = getSecretWordMock.mock.calls.length
+    expect(getSecretWordCallCount).toBe(1);
   })
 })
